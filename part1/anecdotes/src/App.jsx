@@ -27,7 +27,13 @@ const App = () => {
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
 
-  const handleRandom = () => setSelected(Math.floor(Math.random() * anecdotes.length))
+  const handleRandom = () => {
+    while (true) {
+      const nextAnecdote = Math.floor(Math.random() * anecdotes.length)
+      if (nextAnecdote !== selected) return setSelected(nextAnecdote)
+    }
+  }
+
   const updateVote = () => {
     let newVotes = [...votes]
     newVotes[selected] += 1
