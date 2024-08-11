@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+const Header = ({text}) => <><h1>{text}</h1></>
+
 const Button = ({eventHandler, text}) => (
     <button onClick={eventHandler}>
       {text}
@@ -8,7 +10,7 @@ const Button = ({eventHandler, text}) => (
 
 const DisplayAnecdote = ({anecdotes, index}) => <p>{anecdotes[index]}</p>
 
-const DisplayVotes = ({votes, index}) => <p>Votes: {votes[index]}</p>
+const DisplayVotes = ({votes, index}) => <p>this anecdote has {votes[index]} votes</p>
 
 const App = () => {
   const anecdotes = [
@@ -34,11 +36,14 @@ const App = () => {
 
   return (
     <div>
+      <Header text='Anecdote of the day' />
       <DisplayAnecdote anecdotes={anecdotes} index={selected} />
       <DisplayVotes votes={votes} index={selected} />
       <Button text='Vote' eventHandler={updateVote} />
       <Button text='Next anecdote' eventHandler={handleRandom} />
+      <Header text='Anecdote with most votes' />
       <DisplayAnecdote anecdotes={anecdotes} index={votes.indexOf(Math.max(...votes))} />
+      <DisplayVotes votes={votes} index={votes.indexOf(Math.max(...votes))} />
     </div>
   )
 }
